@@ -26,7 +26,8 @@ Point_2 parse_line(string line){
 	return p;
 }
 
-Point_2* readFile(const string filename, int **size){
+
+Point_2* readFile(const string filename){
 	ifstream file(filename);
 	if (file.is_open())
 	{
@@ -34,7 +35,6 @@ Point_2* readFile(const string filename, int **size){
 		getline(file, line);
 		string::size_type sz;
 		int siz = stoi(line, &sz);
-		*size = &siz;
 		int count = 0;
 		Point_2* data = new Point_2[siz];
 		while (getline(file, line))
@@ -45,4 +45,18 @@ Point_2* readFile(const string filename, int **size){
 		return data;
 	}
 	return NULL;
+}
+
+int num_of_points(const string filename){
+	ifstream file(filename);
+	if (file.is_open())
+	{
+		string line;
+		getline(file, line);
+		string::size_type sz;
+		int size = stoi(line, &sz);
+		file.close();
+		return size;
+	}
+	return 0;
 }
