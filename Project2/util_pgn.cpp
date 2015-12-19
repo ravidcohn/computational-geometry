@@ -1,5 +1,6 @@
 #include "util_pgn.h"
 
+
 Arrangement_2 build_env(Point_2* points, int size) {
 	//create environment
 	std::vector<Segment_2> segments;
@@ -30,3 +31,12 @@ Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p) {
 	return regular_output;
 }
 
+Polygon_2 build_polygon(Arrangement_2 pol_arr2){
+	Polygon_2 p;
+	for (Vertex_iterator eit = pol_arr2.vertices_begin(); eit != pol_arr2.vertices_end(); ++eit){
+		std::cout << eit->point() << std::endl;
+		p.push_back(eit->point());
+	}
+	std::cout << std::endl;
+	return p;
+}

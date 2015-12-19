@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="do_cover.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="util_pgn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="util_parse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="do_cover.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
