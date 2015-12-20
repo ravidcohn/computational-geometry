@@ -32,10 +32,10 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	int* polygon_size;
-	int* camera_size;
-	Point_2* polygon_points = readFile(polygon_path, &polygon_size);
-	Point_2* camera_points = readFile(camera_path, &camera_size);
+	int polygon_size;
+	int camera_size;
+	Point_2* polygon_points = readFile(polygon_path, polygon_size);
+	Point_2* camera_points = readFile(camera_path, camera_size);
 
 	Arrangement_2 env = build_env(polygon_points, 3);
 	Arrangement_2 regular_output;
