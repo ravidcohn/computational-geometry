@@ -35,7 +35,7 @@ Point_2* readFile(const string filename, int& size){
 		string::size_type sz;
 		size = stoi(line, &sz);
 		int count = 0;
-		Point_2* data = new Point_2[siz];
+		Point_2* data = new Point_2[size];
 		while (getline(file, line))
 		{
 			data[count++] = parse_line(line);
