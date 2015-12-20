@@ -9,6 +9,17 @@
 #include <CGAL/Polygon_2.h>
 #include <istream>
 #include <vector>
+
+#include <CGAL/Gps_circle_segment_traits_2.h>
+#include <CGAL/Boolean_set_operations_2.h>
+#include <CGAL/Lazy_exact_nt.h>
+#include <list>
+#include <cstdlib>
+#include <cmath>
+
+#include "util_parse.h"
+
+
 typedef CGAL::Exact_predicates_exact_constructions_kernel               Kernel;
 typedef Kernel::Point_2                                                 Point_2;
 typedef Kernel::Segment_2                                               Segment_2;
@@ -20,11 +31,16 @@ typedef Arrangement_2::Ccb_halfedge_circulator							Ccb_halfedge_circulator;
 
 typedef Arrangement_2::Vertex_iterator									Vertex_iterator;
 typedef CGAL::Polygon_2<Kernel>										    Polygon_2;
+typedef CGAL::Polygon_with_holes_2<Kernel>								Polygon_with_holes_2;
 
 // This is the content of the .h file, which is where the declarations go
 Arrangement_2 build_env(Point_2* points, int size);	// function prototype for add.h -- don't forget the semicolon!
 Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p); 
-Polygon_2 build_polygon(Arrangement_2 pol_arr2);
+Polygon_2 build_polygon(Arrangement_2 pol_arr2, string message);
+template<class Kernel, class Container>
+void print_polygon(const CGAL::Polygon_2<Kernel, Container>& P, string message);
+template<class Kernel, class Container>
+void print_polygon_with_holes(const CGAL::Polygon_with_holes_2<Kernel, Container> & pwh);
 
 
 // This is the end of the header guard
