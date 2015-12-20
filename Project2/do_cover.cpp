@@ -49,6 +49,7 @@ int main(int argc, char* argv[])
 	//Join the seen polygons.
 	Pwh_list_2 res;
 	Pwh_list_2::const_iterator it;
+	
 	CGAL::join(polygons.begin(), polygons.end(), std::back_inserter(res));
 
 	// Print the differnce.

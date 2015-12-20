@@ -34,10 +34,13 @@ Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p) {
 
 Polygon_2 build_polygon(Arrangement_2 pol_arr2, string message){
 	Polygon_2 p;
-	for (Vertex_iterator eit = pol_arr2.vertices_begin(); eit != pol_arr2.vertices_end(); ++eit){
+	//for (Vertex_iterator eit = pol_arr2.vertices_begin(); eit != pol_arr2.vertices_end(); ++eit){
+	for (Vertex_iterator eit = pol_arr2.vertices_end(); eit != pol_arr2.vertices_begin(); ){
+		--eit;
 		//std::cout << eit->point() << std::endl;
 		p.push_back(eit->point());
 	}
+
 	print_polygon(p, message);
 	std::cout << std::endl;
 	return p;
