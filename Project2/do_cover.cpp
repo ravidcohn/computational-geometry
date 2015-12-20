@@ -7,6 +7,7 @@ typedef std::list<Polygon_with_holes_2>                   Pwh_list_2;
 
 using namespace std;
 
+
 int main(int argc, char* argv[])
 {
 	//Default path for the inputs files.
@@ -15,23 +16,24 @@ int main(int argc, char* argv[])
 
 	//Gets the files path from user.
 	switch (argc){
-	case 2:{
-		polygon_path = argv[1];
-		break;
+		case 2:{
+			polygon_path = argv[1];
+			break;
+		}
+		case 3:{
+			polygon_path = argv[1];
+			camera_path = argv[2];
+			break;
+		}
 	}
-	case 3:{
-		polygon_path = argv[1];
-		camera_path = argv[2];
-		break;
-	}
-	}
+
 
 	//Read the files.
 	int polygon_size = num_of_points(polygon_path);
 	int camera_size = num_of_points(camera_path);
 	Point_2* polygon_points = readFile(polygon_path);
 	Point_2* camera_points = readFile(camera_path);
-	
+
 	//Build the environment polygon with two datatypes: Arrangement_2, Polygon_2.
 	Arrangement_2 env = build_env(polygon_points, polygon_size);
 	Polygon_2 env_pgn = build_polygon(env, "environment polygon");
@@ -73,7 +75,7 @@ int main(int argc, char* argv[])
 		std::cout << "--> ";
 		print_polygon_with_holes(*it);
 	}
-
+	
 	*/
 	boost::timer timer;
 
