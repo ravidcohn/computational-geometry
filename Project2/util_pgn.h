@@ -39,9 +39,28 @@ Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p);
 Polygon_2 build_polygon(Arrangement_2 pol_arr2, string message);
 template<class Kernel, class Container>
 void print_polygon(const CGAL::Polygon_2<Kernel, Container>& P, string message);
-template<class Kernel, class Container>
-void print_polygon_with_holes(const CGAL::Polygon_with_holes_2<Kernel, Container> & pwh);
 
+template<class Kernel, class Container> 
+void print_polygon_with_holes(const CGAL::Polygon_with_holes_2<Kernel, Container> & pwh)
+{
+	
+	string msg ="ccddc";
+	if (!pwh.is_unbounded()) {
+		std::cout << "{ Outer boundary = ";
+		print_polygon(pwh.outer_boundary(),msg);
+	}
+	else
+		std::cout << "{ Unbounded polygon." << std::endl;
+	typename CGAL::Polygon_with_holes_2<Kernel, Container>::Hole_const_iterator hit;
+	unsigned int k = 1;
+	std::cout << " " << pwh.number_of_holes() << " holes:" << std::endl;
+	for (hit = pwh.holes_begin(); hit != pwh.holes_end(); ++hit, ++k) {
+		std::cout << " Hole #" << k << " = ";
+		print_polygon(*hit,msg);
+	}
+	std::cout << " }" << std::endl;
+	
+}
 
 // This is the end of the header guard
 #endif
