@@ -10,6 +10,6 @@ typedef K::Point_2 Point_2;
 using namespace std;
 
 Point_2 parse_line(string line);
-Point_2* readFile(const string filename, int **size);
+Point_2* readFile(const string filename, int &size);
 
 #endif

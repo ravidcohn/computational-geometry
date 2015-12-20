@@ -187,3 +187,5 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+Project2/Project2.vcxproj.filters
+Project2/Project2.vcxproj
