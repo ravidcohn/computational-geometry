@@ -45,17 +45,3 @@ Point_2* readFile(const string filename, int& size){
 	}
 	return NULL;
 }
-
-int num_of_points(const string filename){
-	ifstream file(filename);
-	if (file.is_open())
-	{
-		string line;
-		getline(file, line);
-		string::size_type sz;
-		int size = stoi(line, &sz);
-		file.close();
-		return size;
-	}
-	return 0;
-}
