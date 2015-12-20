@@ -27,7 +27,6 @@ int main(int argc, char* argv[])
 		}
 	}
 
-
 	//Read the files.
 	int polygon_size = num_of_points(polygon_path);
 	int camera_size = num_of_points(camera_path);
