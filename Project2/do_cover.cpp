@@ -16,7 +16,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	//Default path for the inputs files.
-	string polygon_path = "þþpolygon4.txt";
+	string polygon_path = "polygon4.txt";
 	string camera_path = "þþcamera4.txt";
 
 	//Gets the files path from user.
@@ -32,8 +32,8 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	int polygon_size;
-	int camera_size;
+	int polygon_size = 0;
+	int camera_size = 0;
 	Point_2* polygon_points = readFile(polygon_path, polygon_size);
 	Point_2* camera_points = readFile(camera_path, camera_size);
 
