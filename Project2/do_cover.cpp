@@ -14,6 +14,7 @@ typedef std::list<Polygon_with_holes_2>                   Pwh_list_2;
 
 using namespace std;
 
+
 int main(int argc, char* argv[])
 {
 	//Default path for the inputs files.
