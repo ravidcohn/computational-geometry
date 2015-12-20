@@ -16,20 +16,20 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	//Default path for the inputs files.
-	string polygon_path = "þþpolygon4.txt";
-	string camera_path = "þþcamera4.txt";
+	string polygon_path = "þþpolygon.txt";
+	string camera_path = "þþcamera.txt";
 
 	//Gets the files path from user.
 	switch (argc){
-	case 2:{
-		polygon_path = argv[1];
-		break;
-	}
-	case 3:{
-		polygon_path = argv[1];
-		camera_path = argv[2];
-		break;
-	}
+		case 2:{
+			polygon_path = argv[1];
+			break;
+		}
+		case 3:{
+			polygon_path = argv[1];
+			camera_path = argv[2];
+			break;
+		}
 	}
 
 	int* polygon_size;

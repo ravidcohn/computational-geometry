@@ -193,5 +193,8 @@ Project2/Project2.vcxproj
 *.dll
 *.filters
 *.vcxproj
+<<<<<<< HEAD
 Project2/Project2.vcxproj
 Project2/Project2.vcxproj.filters
+=======
+>>>>>>> 6bfcad1f214f95b1cd018db44167edbc5ef1b3ae
