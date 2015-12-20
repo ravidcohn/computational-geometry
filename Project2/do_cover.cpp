@@ -37,7 +37,8 @@ int main(int argc, char* argv[])
 	Point_2* polygon_points = readFile(polygon_path, polygon_size);
 	Point_2* camera_points = readFile(camera_path, camera_size);
 
-	Arrangement_2 env = build_env(polygon_points, 3);
+	Arrangement_2 env = build_env(polygon_points, polygon_size);
+	Polygon_2 env_pgn = build_polygon(env, "environment polygon");
 	Arrangement_2 regular_output;
 	std::list<Polygon_2> polygons;
 	for (int i = 0; i < camera_size; i++){
