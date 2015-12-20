@@ -1,5 +1,5 @@
 #include <boost/timer.hpp>
-
+//test github
 #include <CGAL/Gps_circle_segment_traits_2.h>
 #include <CGAL/Boolean_set_operations_2.h>
 #include <CGAL/Lazy_exact_nt.h>
@@ -33,12 +33,11 @@ int main(int argc, char* argv[])
 	}
 	}
 
-	int polygon_size = 0;
-	int camera_size = 0;
-	
-	Point_2* polygon_points = readFile(polygon_path, polygon_size);
-	Point_2* camera_points = readFile(camera_path, camera_size);
-	cout<< polygon_size<<" "<< camera_size<<'\n';
+	int* polygon_size;
+	int* camera_size;
+	Point_2* polygon_points = readFile(polygon_path, &polygon_size);
+	Point_2* camera_points = readFile(camera_path, &camera_size);
+
 	Arrangement_2 env = build_env(polygon_points, 3);
 	Arrangement_2 regular_output;
 	std::list<Polygon_2> polygons;
