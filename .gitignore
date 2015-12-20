@@ -5,7 +5,8 @@
 *.suo
 *.user
 *.sln.docstates
-
+*.vcxproj
+*.filters
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -94,11 +95,11 @@ _TeamCity*
 *.dotCover
 
 # NCrunch
-_NCrunch_*
+NCrunch*
 .*crunch*.local.xml
 
 # MightyMoose
-*.mm.*
+.mm.
 AutoTest.Net/
 
 # Web workbench (sass)
@@ -187,3 +188,10 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+Project2/Project2.vcxproj.filters
+Project2/Project2.vcxproj
+*.dll
+*.filters
+*.vcxproj
+Project2/Project2.vcxproj
+Project2/Project2.vcxproj.filters
