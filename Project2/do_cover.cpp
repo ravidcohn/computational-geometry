@@ -14,15 +14,6 @@ typedef std::list<Polygon_with_holes_2>                   Pwh_list_2;
 
 using namespace std;
 
-void swap(int &a, int &b)
-{
-    int temp = 0;
-    temp = a;
-    a = b;
-    b = temp;
-
-    return;
-}
 int main(int argc, char* argv[])
 {
 	//Default path for the inputs files.
