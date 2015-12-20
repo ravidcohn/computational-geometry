@@ -16,8 +16,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	//Default path for the inputs files.
-	string polygon_path = "polygon4.txt";
-	string camera_path = "þþcamera5.txt";
+	string polygon_path = "polygon.txt";
+	string camera_path = "camera.txt";
 
 	//Gets the files path from user.
 	switch (argc){
@@ -32,17 +32,15 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	//Read the files.
 	int polygon_size = 0;
 	int camera_size = 0;
 	Point_2* polygon_points = readFile(polygon_path, polygon_size);
 	Point_2* camera_points = readFile(camera_path, camera_size);
 
-	//Build the environment polygon with two datatype: Arrangement_2, Polygon_2.
 	Arrangement_2 env = build_env(polygon_points, polygon_size);
 	Polygon_2 env_pgn = build_polygon(env, "environment polygon");
 	Arrangement_2 regular_output;
-	list<Polygon_2> polygons;
+	std::list<Polygon_2> polygons;
 	for (int i = 0; i < camera_size; i++){
 		regular_output = find_visibility(env, camera_points[i]);
 		polygons.push_back(build_polygon(regular_output, "view Polygon "));
@@ -51,13 +49,14 @@ int main(int argc, char* argv[])
 	//Join the seen polygons.
 	Pwh_list_2 res;
 	Pwh_list_2::const_iterator it;
-	CGAL::join(res.begin, res.end, back_inserter(res));
+	
+	CGAL::join(polygons.begin(), polygons.end(), std::back_inserter(res));
 
 	// Print the differnce.
 	std::cout << "The Join polygon:" << std::endl;
 	for (it = res.begin(); it != res.end(); ++it) {
-		std::cout << "--> "<< endl;
-		//print_polygon_with_holes(res2);
+		std::cout << "--> ";
+		//print_polygon_with_holes(*it);
 	}
 
 	/*
