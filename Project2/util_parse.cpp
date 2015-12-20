@@ -26,14 +26,15 @@ Point_2 parse_line(string line){
 	return p;
 }
 
-Point_2* readFile(const string filename, int& size){
+Point_2* readFile(const string filename, int **size){
 	ifstream file(filename);
 	if (file.is_open())
 	{
 		string line;
 		getline(file, line);
 		string::size_type sz;
-		size = stoi(line, &sz);
+		int siz = stoi(line, &sz);
+		*size = &siz;
 		int count = 0;
 		Point_2* data = new Point_2[siz];
 		while (getline(file, line))
