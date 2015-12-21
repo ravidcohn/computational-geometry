@@ -37,8 +37,10 @@ Point_2* readFile(const string filename, int& size){
 		size = stoi(line, &sz);
 		int count = 0;
 		Point_2* data = new Point_2[size];
-		while (getline(file, line))
+		//while (getline(file, line))
+		for (int i = 0; i < size;i++)
 		{
+			getline(file, line);
 			data[count++] = parse_line(line);
 		}
 		file.close();

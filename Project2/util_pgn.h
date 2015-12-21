@@ -35,7 +35,7 @@ typedef CGAL::Polygon_with_holes_2<Kernel>								Polygon_with_holes_2;
 
 // This is the content of the .h file, which is where the declarations go
 Arrangement_2 build_pgn_Arrangement_2(Point_2* points, int size);	// function prototype for add.h -- don't forget the semicolon!
-Polygon_2 build_pgn_Polygon_2(Point_2* points, int size);
+Polygon_with_holes_2 build_pgn_Polygon_with_holes_2(Point_2* points, int size);
 Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p); 
 Polygon_2 convert_Arrangement_2_to_Polygon_2(Arrangement_2 pol_arr2, string message, bool revert_orientation);
 template<class Kernel, class Container>
@@ -45,7 +45,7 @@ template<class Kernel, class Container>
 void print_polygon_with_holes(const CGAL::Polygon_with_holes_2<Kernel, Container> & pwh)
 {
 
-	string msg = "ccddc";
+	string msg = "";
 	if (!pwh.is_unbounded()) {
 		std::cout << "{ Outer boundary = ";
 		print_polygon(pwh.outer_boundary(), msg);

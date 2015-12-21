@@ -18,13 +18,14 @@ Arrangement_2 build_pgn_Arrangement_2(Point_2* points, int size) {
 	return env;
 }
 
-Polygon_2 build_pgn_Polygon_2(Point_2* points, int size){
+Polygon_with_holes_2 build_pgn_Polygon_with_holes_2(Point_2* points, int size){
 	Polygon_2 p;
 	for (int i = 0; i < size; i++){
 		p.push_back(points[i]);
 	}
-	print_polygon(p, "Environment polygon");
-	return p;
+	Polygon_with_holes_2 pwh(p);
+	print_polygon(pwh.outer_boundary(), "Environment polygon");
+	return pwh;
 }
 
 Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p) {
@@ -66,7 +67,7 @@ void print_polygon(const CGAL::Polygon_2<Kernel, Container>& P, string message)
 	typename CGAL::Polygon_2<Kernel, Container>::Vertex_const_iterator vit;
 	std::cout << message << "[ " << P.size() << " vertices:";
 	for (vit = P.vertices_begin(); vit != P.vertices_end(); ++vit)
-		std::cout << " (" << *vit << ')';
+		std::cout << " (" << setprecision(6) << *vit << ')';
 	std::cout << " ]" << std::endl;
 }
 
