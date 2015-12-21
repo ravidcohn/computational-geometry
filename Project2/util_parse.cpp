@@ -27,6 +27,7 @@ Point_2 parse_line(string line){
 }
 
 Point_2* readFile(const string filename, int& size){
+	cout<< "file name is: "<<filename<<'\n';
 	ifstream file(filename);
 	if (file.is_open())
 	{
@@ -43,5 +44,9 @@ Point_2* readFile(const string filename, int& size){
 		file.close();
 		return data;
 	}
+	 std::ifstream fin(filename);
+   if(!fin)
+      perror ( "Stream Failed to open because: " );
+
 	return NULL;
 }

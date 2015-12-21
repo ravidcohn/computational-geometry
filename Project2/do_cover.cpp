@@ -18,8 +18,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	//Default path for the inputs files.
-	string polygon_path = "polygon4.txt";
-	string camera_path = "þþcamera5.txt";
+	string polygon_path = "polygon.txt";
+	string camera_path = "camera.txt";
 
 	//Gets the files path from user.
 	switch (argc){
@@ -58,11 +58,8 @@ int main(int argc, char* argv[])
 	// Print the differnce.
 	std::cout << "The Join polygon:" << std::endl;
 	for (it = res.begin(); it != res.end(); ++it) {
-		std::cout << "--> "<< endl;
-		for (it = res.begin(); it != res.end(); ++it) {
 			std::cout << "--> ";
 			print_polygon_with_holes(*it);
-		}
 	}
 
 	/*
