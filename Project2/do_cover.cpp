@@ -58,11 +58,8 @@ int main(int argc, char* argv[])
 	// Print the differnce.
 	std::cout << "The Join polygon:" << std::endl;
 	for (it = res.begin(); it != res.end(); ++it) {
-		std::cout << "--> "<< endl;
-		for (it = res.begin(); it != res.end(); ++it) {
 			std::cout << "--> ";
 			print_polygon_with_holes(*it);
-		}
 	}
 
 	/*
