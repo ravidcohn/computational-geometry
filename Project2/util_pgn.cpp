@@ -56,4 +56,3 @@ void print_polygon(const CGAL::Polygon_2<Kernel, Container>& P, string message)
 	std::cout << " ]" << std::endl;
 }
 
-

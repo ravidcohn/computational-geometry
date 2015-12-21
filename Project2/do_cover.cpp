@@ -59,25 +59,7 @@ int main(int argc, char* argv[])
 	std::cout << "The Join polygon:" << std::endl;
 	for (it = res.begin(); it != res.end(); ++it) {
 		std::cout << "--> "<< endl;
-		for (it = res.begin(); it != res.end(); ++it) {
-			std::cout << "--> ";
-			print_polygon_with_holes(*it);
-		
-			if (res.begin().is_unbounded()) {
-				std::cout << "{ Outer boundary = ";
-				print_polygon(*it.outer_boundary(), "");
-			}
-			else
-				std::cout << "{ Unbounded polygon." << std::endl;
-			typename CGAL::Polygon_with_holes_2<Kernel, Container>::Hole_const_iterator hit;
-			unsigned int k = 1;
-			std::cout << " " << pwh.number_of_holes() << " holes:" << std::endl;
-			for (hit = pwh.holes_begin(); hit != pwh.holes_end(); ++hit, ++k) {
-				std::cout << " Hole #" << k << " = ";
-				print_polygon(*hit, "");
-			}
-			std::cout << " }" << std::endl;
-		}
+		print_polygon_with_holes(*it);
 	}
 
 	/*
