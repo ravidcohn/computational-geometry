@@ -40,7 +40,7 @@ Polygon_2 build_polygon(Arrangement_2 pol_arr2, string message);
 template<class Kernel, class Container>
 void print_polygon(const CGAL::Polygon_2<Kernel, Container>& P, string message);
 template<class Kernel, class Container>
-void print_polygon_with_holes(const CGAL::Polygon_with_holes_2<Kernel, Container> & pwh);
+void print_polygon_with_holes(const CGAL::Polygon_with_holes_2<Kernel, Container>  pwh);
 
 
 // This is the end of the header guard
