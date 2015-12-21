@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Arrangement_2 build_env(Point_2* points, int size) {
+Arrangement_2 build_pgn_Arrangement_2(Point_2* points, int size) {
 	//create environment
 	std::vector<Segment_2> segments;
 	for (int i = 0; i < size;i++){
@@ -16,6 +16,15 @@ Arrangement_2 build_env(Point_2* points, int size) {
 	Arrangement_2 env;
 	CGAL::insert_non_intersecting_curves(env, segments.begin(), segments.end());
 	return env;
+}
+
+Polygon_2 build_pgn_Polygon_2(Point_2* points, int size){
+	Polygon_2 p;
+	for (int i = 0; i < size; i++){
+		p.push_back(points[i]);
+	}
+	print_polygon(p, "Environment polygon");
+	return p;
 }
 
 Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p) {
@@ -32,13 +41,18 @@ Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p) {
 	return regular_output;
 }
 
-Polygon_2 build_polygon(Arrangement_2 pol_arr2, string message){
+Polygon_2 convert_Arrangement_2_to_Polygon_2(Arrangement_2 pol_arr2, string message, bool revert_orientation){
 	Polygon_2 p;
-	//for (Vertex_iterator eit = pol_arr2.vertices_begin(); eit != pol_arr2.vertices_end(); ++eit){
-	for (Vertex_iterator eit = pol_arr2.vertices_end(); eit != pol_arr2.vertices_begin(); ){
-		--eit;
-		//std::cout << eit->point() << std::endl;
-		p.push_back(eit->point());
+	if (revert_orientation){
+		for (Vertex_iterator eit = pol_arr2.vertices_end(); eit != pol_arr2.vertices_begin();){
+			--eit;
+			p.push_back(eit->point());
+		}
+	}
+	else{
+		for (Vertex_iterator eit = pol_arr2.vertices_begin(); eit != pol_arr2.vertices_end(); ++eit){
+			p.push_back(eit->point());
+		}
 	}
 
 	print_polygon(p, message);
