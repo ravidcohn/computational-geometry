@@ -87,10 +87,6 @@ int main(int argc, char* argv[])
 		Polygon_2 res = difference.outer_boundary();
 		cout << "Not Cover: " << setprecision(6) << *res.vertices_begin() << endl;
 		print_polygon_with_holes(difference);
-		Point_2 p = *res.vertices_begin();
-		double d = CGAL::to_double(p.x());
-		cout << fixed;
-		cout << "Not Cover: " << setprecision(10) << d << endl;
 	}
 
 

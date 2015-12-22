@@ -67,7 +67,7 @@ void print_polygon(const CGAL::Polygon_2<Kernel, Container>& P, string message)
 	typename CGAL::Polygon_2<Kernel, Container>::Vertex_const_iterator vit;
 	std::cout << message << "[ " << P.size() << " vertices:";
 	for (vit = P.vertices_begin(); vit != P.vertices_end(); ++vit)
-		std::cout << " (" << setprecision(6) << *vit << ')';
+		std::cout << " (" << *vit << ')';
 	std::cout << " ]" << std::endl;
 }
 
