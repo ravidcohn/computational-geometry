@@ -2,6 +2,8 @@
 #ifndef UTIL_PGN_H
 #define UTIL_PGN_H
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
+#include <CGAL/Triangular_expansion_visibility_2.h>
+
 #include <CGAL/Simple_polygon_visibility_2.h>
 #include <CGAL/Arrangement_2.h>
 #include <CGAL/Arr_segment_traits_2.h>
@@ -20,6 +22,7 @@
 #include "util_parse.h"
 
 
+
 typedef CGAL::Exact_predicates_exact_constructions_kernel               Kernel;
 typedef Kernel::Point_2                                                 Point_2;
 typedef Kernel::Segment_2                                               Segment_2;
@@ -33,10 +36,14 @@ typedef Arrangement_2::Vertex_iterator									Vertex_iterator;
 typedef CGAL::Polygon_2<Kernel>										    Polygon_2;
 typedef CGAL::Polygon_with_holes_2<Kernel>								Polygon_with_holes_2;
 
+typedef Arrangement_2::Halfedge_const_handle                    Halfedge_const_handle;
+typedef CGAL::Triangular_expansion_visibility_2<Arrangement_2>  TEV;
+
 // This is the content of the .h file, which is where the declarations go
 Arrangement_2 build_pgn_Arrangement_2(Point_2* points, int size);	// function prototype for add.h -- don't forget the semicolon!
 Polygon_with_holes_2 build_pgn_Polygon_with_holes_2(Point_2* points, int size);
 Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p); 
+Arrangement_2 find_visibility_from_bound(Arrangement_2 env, Point_2 p);
 Polygon_2 convert_Arrangement_2_to_Polygon_2(Arrangement_2 pol_arr2, string message, bool revert_orientation);
 template<class Kernel, class Container>
 void print_polygon(const CGAL::Polygon_2<Kernel, Container>& P, string message);

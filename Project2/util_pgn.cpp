@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 Arrangement_2 build_pgn_Arrangement_2(Point_2* points, int size) {
 	//create environment
 	std::vector<Segment_2> segments;
@@ -29,6 +30,7 @@ Polygon_with_holes_2 build_pgn_Polygon_with_holes_2(Point_2* points, int size){
 }
 
 Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p) {
+	
 	Arrangement_2::Face_const_handle * face;
 	CGAL::Arr_naive_point_location<Arrangement_2> pl(env);
 	CGAL::Arr_point_location_result<Arrangement_2>::Type obj = pl.locate(p);
@@ -40,6 +42,19 @@ Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p) {
 	RSPV regular_visibility(env);
 	regular_visibility.compute_visibility(p, *face, regular_output);
 	return regular_output;
+}
+
+Arrangement_2 find_visibility_from_bound(Arrangement_2 env, Point_2 p) {
+	
+  Halfedge_const_handle he = env.halfedges_begin();
+  
+  while (he->target()->point() != p)
+    he++;
+  
+  Arrangement_2 output_arr;
+  TEV tev(env);
+  Face_handle fh = tev.compute_visibility(p, he, output_arr);
+  return output_arr;
 }
 
 Polygon_2 convert_Arrangement_2_to_Polygon_2(Arrangement_2 pol_arr2, string message, bool revert_orientation){

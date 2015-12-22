@@ -48,9 +48,17 @@ int main(int argc, char* argv[])
 	list<Polygon_2> polygons;
 	bool revert_orientation = true;
 	for (int i = 0; i < camera_size; i++){
-		if(CGAL::bounded_side_2(polygon_points, polygon_points+polygon_size,camera_points[i], K()) != CGAL::ON_UNBOUNDED_SIDE){
+		switch(CGAL::bounded_side_2(polygon_points, polygon_points+polygon_size,camera_points[i], K())){
+		case CGAL::ON_BOUNDED_SIDE:{
 			regular_output = find_visibility(env_arr, camera_points[i]);
 			polygons.push_back(convert_Arrangement_2_to_Polygon_2(regular_output, "view Polygon ", revert_orientation));
+			break;
+								   }
+		case CGAL::ON_BOUNDARY:{
+			regular_output = find_visibility_from_bound(env_arr, camera_points[i]);
+			polygons.push_back(convert_Arrangement_2_to_Polygon_2(regular_output, "view Polygon ", !revert_orientation));
+			break;
+							   }   
 		}
 	}
 
