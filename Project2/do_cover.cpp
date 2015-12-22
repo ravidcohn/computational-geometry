@@ -23,15 +23,15 @@ int main(int argc, char* argv[])
 	string camera_path = "camera.txt";
 	//Gets the files path from user.
 	switch (argc){
-		case 2:{
-			polygon_path = argv[1];
-			break;
-		}
-		case 3:{
-			polygon_path = argv[1];
-			camera_path = argv[2];
-			break;
-		}
+	case 2:{
+		polygon_path = argv[1];
+		break;
+		   }
+	case 3:{
+		polygon_path = argv[1];
+		camera_path = argv[2];
+		break;
+		   }
 	}
 	boost::timer timer;
 
@@ -48,8 +48,10 @@ int main(int argc, char* argv[])
 	list<Polygon_2> polygons;
 	bool revert_orientation = true;
 	for (int i = 0; i < camera_size; i++){
-		regular_output = find_visibility(env_arr, camera_points[i]);
-		polygons.push_back(convert_Arrangement_2_to_Polygon_2(regular_output, "view Polygon ", revert_orientation));
+		if(CGAL::bounded_side_2(polygon_points, polygon_points+polygon_size,camera_points[i], K()) != CGAL::ON_UNBOUNDED_SIDE){
+			regular_output = find_visibility(env_arr, camera_points[i]);
+			polygons.push_back(convert_Arrangement_2_to_Polygon_2(regular_output, "view Polygon ", revert_orientation));
+		}
 	}
 
 	//Join the seen polygons.
@@ -60,8 +62,8 @@ int main(int argc, char* argv[])
 	// Print the joint polygon.
 	std::cout << "The Join polygon:" << std::endl;
 	for (it_join_pgn = join_pgn.begin(); it_join_pgn != join_pgn.end(); ++it_join_pgn) {
-			std::cout << "--> ";
-			print_polygon_with_holes(*it_join_pgn);
+		std::cout << "--> ";
+		print_polygon_with_holes(*it_join_pgn);
 	}
 
 	//Calculate the differnce between seen polygon and the original polygon.
@@ -98,9 +100,9 @@ int main(int argc, char* argv[])
 	std::vector<Polygon_2>  holes;
 	int index = 0;
 	for (it_join_pgn = join_pgn.begin(); it_join_pgn != join_pgn.end(); ++it_join_pgn) {
-		Polygon_with_holes_2 q = *it_join_pgn;
-		holes.push_back(q.outer_boundary());
-		index++;
+	Polygon_with_holes_2 q = *it_join_pgn;
+	holes.push_back(q.outer_boundary());
+	index++;
 	}
 	Polygon_with_holes_2 inv_pwh(env_pgn.outer_boundary(), holes.begin(), holes.end());
 	print_polygon_with_holes(inv_pwh);
@@ -119,8 +121,8 @@ int main(int argc, char* argv[])
 	// Print the differnce.
 	std::cout << "The difference polygon:" << std::endl;
 	for (it = difference.begin(); it != difference.end(); ++it) {
-		std::cout << "--> ";
-		print_polygon_with_holes(*it);
+	std::cout << "--> ";
+	print_polygon_with_holes(*it);
 	}
 
 	*/
