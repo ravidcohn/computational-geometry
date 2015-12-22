@@ -33,13 +33,15 @@ int main(int argc, char* argv[])
 		break;
 		   }
 	}
-	boost::timer timer;
-
+	
 	//Read the files.
 	int polygon_size = 0;
 	int camera_size = 0;
 	Point_2* polygon_points = readFile(polygon_path, polygon_size);
 	Point_2* camera_points = readFile(camera_path, camera_size);
+
+	boost::timer timer;
+
 
 	//Build the environment polygon with two datatype: Arrangement_2, Polygon_2.
 	Arrangement_2 env_arr = build_pgn_Arrangement_2(polygon_points, polygon_size);
