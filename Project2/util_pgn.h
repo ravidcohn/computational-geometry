@@ -36,6 +36,7 @@ typedef Arrangement_2::Vertex_iterator									Vertex_iterator;
 typedef CGAL::Polygon_2<Kernel>										    Polygon_2;
 typedef CGAL::Polygon_with_holes_2<Kernel>								Polygon_with_holes_2;
 
+
 typedef Arrangement_2::Halfedge_const_handle                    Halfedge_const_handle;
 typedef CGAL::Triangular_expansion_visibility_2<Arrangement_2, CGAL::Tag_false>  TEV;
 
@@ -47,12 +48,16 @@ Polygon_with_holes_2 build_pgn_Polygon_with_holes_2(Point_2* points, int size);
 Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p); 
 Arrangement_2 find_visibility_from_bound(Arrangement_2 env, Point_2 p);
 Polygon_2 convert_Arrangement_2_to_Polygon_2(Arrangement_2 pol_arr2, string message, bool revert_orientation);
+Arrangement_2 convert_Polygon_2_to_Arrangement_2(Polygon_with_holes_2 pwh);
 template<class Kernel, class Container>
 void print_polygon(const CGAL::Polygon_2<Kernel, Container>& P, string message);
 
 void create_polygons_and_spikes(Arrangement_2 &arr, list<Polygon_2> &polygons, vector<Segment_2> &spikes);
 
-Point_2 find_inter_point(Polygon_with_holes_2 pwh);
+Point_2 find_inter_point(Polygon_2 pwh);
+
+Polygon_2 intersect_Arrangement_2_with_segments(Arrangement_2 arr, vector<Segment_2> segments);
+
 
 template<class Kernel, class Container>
 void print_polygon_with_holes(const CGAL::Polygon_with_holes_2<Kernel, Container> & pwh)

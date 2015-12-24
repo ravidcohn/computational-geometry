@@ -98,12 +98,18 @@ int main(int argc, char* argv[])
 		}
 	}
 
+
 	//Print result.
 	if (cover){
 		cout << "The cameras cover the polygon!" << endl;
 	}
 	else{
-		Point_2 res = find_inter_point(difference);
+		//Split the differnce polygon by the segments "spikes".
+		Arrangement_2 arr_difference = convert_Polygon_2_to_Arrangement_2(difference);
+		Polygon_2 res_pgn = intersect_Arrangement_2_with_segments(arr_difference, spikes);
+		print_polygon(res_pgn, "res pgn:");
+		//Find inter point in the unseen polygon.
+		Point_2 res = find_inter_point(res_pgn);
 		double x = CGAL::to_double(res.x());
 		double y = CGAL::to_double(res.y());
 		cout << "The cameras do not cover the point (" << setprecision(6) << x << "," << y << ")" << endl;
