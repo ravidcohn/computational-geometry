@@ -2,6 +2,41 @@
 
 using namespace std;
 
+void create_polygons_and_spikes(Arrangement_2 &arr, list<Polygon_2> &polygons, vector<Segment_2> &spikes){
+
+
+	Edge_const_iterator eit;
+	for (eit = arr.edges_begin(); eit != arr.edges_end(); ++eit){
+		Segment_2 seg = Segment_2(eit->source()->point(),eit->target()->point());
+		spikes.push_back(seg);
+
+	}
+
+
+	Arrangement_2::Face_const_iterator fit;
+	Polygon_2 p;
+	for (fit = arr.faces_begin(); fit != arr.faces_end();++fit){
+		if(fit->has_outer_ccb()){
+
+			Arrangement_2::Ccb_halfedge_const_circulator ccb = fit->outer_ccb();
+			const Arrangement_2::Ccb_halfedge_const_circulator ccb_stop = fit->outer_ccb();
+			do{
+				{
+					Segment_2 seg = Segment_2(ccb->source()->point(),ccb->target()->point());
+					Segment_2 seg_aps = Segment_2(ccb->target()->point(),ccb->source()->point());
+					p.push_back(ccb->source()->point());
+					spikes.erase(std::remove(spikes.begin(), spikes.end(), seg), spikes.end());
+					spikes.erase(std::remove(spikes.begin(), spikes.end(), seg_aps), spikes.end());
+					ccb = ccb->next();
+				}
+			}
+			while(ccb != ccb_stop);
+		}
+	}
+	polygons.push_back(p);
+	
+}
+
 
 Arrangement_2 build_pgn_Arrangement_2(Point_2* points, int size) {
 	//create environment
@@ -37,19 +72,33 @@ Arrangement_2 find_visibility(Arrangement_2 env, Point_2 p) {
 	face = boost::get<Arrangement_2::Face_const_handle>(&obj);
 	// compute non regularized visibility area 
 	// Define visibiliy object type that computes regularized visibility area
-	typedef CGAL::Simple_polygon_visibility_2<Arrangement_2, CGAL::Tag_true> RSPV;
+/*	typedef CGAL::Simple_polygon_visibility_2<Arrangement_2, CGAL::Tag_true> RSPV;
 	Arrangement_2 regular_output;
 	RSPV regular_visibility(env);
 	regular_visibility.compute_visibility(p, *face, regular_output);
 	return regular_output;
+	*/
+	Arrangement_2 non_regular_output;
+	NSPV non_regular_visibility(env);
+	non_regular_visibility.compute_visibility(p, *face, non_regular_output);
+	return non_regular_output;
 }
 
 Arrangement_2 find_visibility_from_bound(Arrangement_2 env, Point_2 p) {
 	
   Halfedge_const_handle he = env.halfedges_begin();
   
-  while (he->target()->point() != p)
-    he++;
+  bool edge_found = false;
+
+  while (!edge_found){
+    Segment_2 seg = Segment_2(he->source()->point(),he->target()->point());
+	   if(seg.collinear_has_on(p)){
+		   edge_found = true;
+	   }
+	   else{
+		he++;
+	   }
+  }
   
   Arrangement_2 output_arr;
   TEV tev(env);

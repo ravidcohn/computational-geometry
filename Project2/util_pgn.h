@@ -37,7 +37,9 @@ typedef CGAL::Polygon_2<Kernel>										    Polygon_2;
 typedef CGAL::Polygon_with_holes_2<Kernel>								Polygon_with_holes_2;
 
 typedef Arrangement_2::Halfedge_const_handle                    Halfedge_const_handle;
-typedef CGAL::Triangular_expansion_visibility_2<Arrangement_2>  TEV;
+typedef CGAL::Triangular_expansion_visibility_2<Arrangement_2, CGAL::Tag_false>  TEV;
+
+ typedef CGAL::Simple_polygon_visibility_2<Arrangement_2, CGAL::Tag_false> NSPV;
 
 // This is the content of the .h file, which is where the declarations go
 Arrangement_2 build_pgn_Arrangement_2(Point_2* points, int size);	// function prototype for add.h -- don't forget the semicolon!
@@ -47,6 +49,8 @@ Arrangement_2 find_visibility_from_bound(Arrangement_2 env, Point_2 p);
 Polygon_2 convert_Arrangement_2_to_Polygon_2(Arrangement_2 pol_arr2, string message, bool revert_orientation);
 template<class Kernel, class Container>
 void print_polygon(const CGAL::Polygon_2<Kernel, Container>& P, string message);
+
+void create_polygons_and_spikes(Arrangement_2 &arr, list<Polygon_2> &polygons, vector<Segment_2> &spikes);
 
 template<class Kernel, class Container>
 void print_polygon_with_holes(const CGAL::Polygon_with_holes_2<Kernel, Container> & pwh)
