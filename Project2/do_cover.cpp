@@ -2,6 +2,7 @@
 #include <CGAL/Gps_circle_segment_traits_2.h>
 #include <CGAL/Boolean_set_operations_2.h>
 #include <CGAL/Lazy_exact_nt.h>
+
 #include <list>
 #include <cstdlib>
 #include <cmath>
@@ -9,11 +10,11 @@
 #include "util_pgn.h"
 #include "util_parse.h"
 
-
-
 typedef std::list<Polygon_with_holes_2>                   Pwh_list_2;
 
 using namespace std;
+
+
 
 
 int main(int argc, char* argv[])
@@ -33,7 +34,6 @@ int main(int argc, char* argv[])
 		break;
 		   }
 	}
-	boost::timer timer;
 
 	//Read the files.
 	int polygon_size = 0;
@@ -41,18 +41,35 @@ int main(int argc, char* argv[])
 	Point_2* polygon_points = readFile(polygon_path, polygon_size);
 	Point_2* camera_points = readFile(camera_path, camera_size);
 
+	boost::timer timer;
+
+
 	//Build the environment polygon with two datatype: Arrangement_2, Polygon_2.
 	Arrangement_2 env_arr = build_pgn_Arrangement_2(polygon_points, polygon_size);
 	Polygon_with_holes_2 env_pgn = build_pgn_Polygon_with_holes_2(polygon_points, polygon_size);
-	Arrangement_2 regular_output;
+	Arrangement_2 non_regular_output;
 	list<Polygon_2> polygons;
+	vector<Segment_2> spikes;
 	bool revert_orientation = true;
 	for (int i = 0; i < camera_size; i++){
-		if(CGAL::bounded_side_2(polygon_points, polygon_points+polygon_size,camera_points[i], K()) != CGAL::ON_UNBOUNDED_SIDE){
-			regular_output = find_visibility(env_arr, camera_points[i]);
-			polygons.push_back(convert_Arrangement_2_to_Polygon_2(regular_output, "view Polygon ", revert_orientation));
+		switch(CGAL::bounded_side_2(polygon_points, polygon_points+polygon_size,camera_points[i], K())){
+		case CGAL::ON_BOUNDED_SIDE:{
+			non_regular_output = find_visibility(env_arr, camera_points[i]);
+			create_polygons_and_spikes(non_regular_output, polygons, spikes);
+			break;
+								   }
+		case CGAL::ON_BOUNDARY:{
+			non_regular_output = find_visibility_from_bound(env_arr, camera_points[i]);
+			create_polygons_and_spikes(non_regular_output, polygons, spikes);
+			break;
+							   }   
 		}
 	}
+	cout<< "spikes: "<<'\n';
+	for(std::vector<Segment_2>::const_iterator itr = spikes.begin(); itr != spikes.end(); itr++){
+		cout<< itr->point(0) << " <-> "  << itr->point(1) << '\n';
+	}	
+	
 
 	//Join the seen polygons.
 	Pwh_list_2 join_pgn;
@@ -81,7 +98,19 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	
+	//Print result.
+	if (cover){
+		cout << "The cameras cover the polygon!" << endl;
+	}
+	else{
+		Polygon_2 res = difference.outer_boundary();
+		Point_2 p = *res.vertices_begin();
+		double x = CGAL::to_double(p.x());
+		double y = CGAL::to_double(p.y());
+		cout << "The cameras do not cover the point (" << setprecision(6) << x << "," << y << ")" << endl;
+		print_polygon_with_holes(difference);
+	}
+
 
 
 	double secs = timer.elapsed();
