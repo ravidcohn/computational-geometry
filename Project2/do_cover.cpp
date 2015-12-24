@@ -64,12 +64,12 @@ int main(int argc, char* argv[])
 			break;
 							   }   
 		}
-	}
+		}
 	cout<< "spikes: "<<'\n';
 	for(std::vector<Segment_2>::const_iterator itr = spikes.begin(); itr != spikes.end(); itr++){
 		cout<< itr->point(0) << " <-> "  << itr->point(1) << '\n';
-	}	
-	
+	}
+
 
 	//Join the seen polygons.
 	Pwh_list_2 join_pgn;
@@ -111,6 +111,38 @@ int main(int argc, char* argv[])
 		print_polygon_with_holes(difference);
 	}
 
+
+	/*
+	//Build inverce polygon.
+	std::vector<Polygon_2>  holes;
+	int index = 0;
+	for (it_join_pgn = join_pgn.begin(); it_join_pgn != join_pgn.end(); ++it_join_pgn) {
+	Polygon_with_holes_2 q = *it_join_pgn;
+	holes.push_back(q.outer_boundary());
+	index++;
+	}
+	Polygon_with_holes_2 inv_pwh(env_pgn.outer_boundary(), holes.begin(), holes.end());
+	print_polygon_with_holes(inv_pwh);
+
+	//Calculate the intersect between inv_pwh and the env_pgn.
+	Pwh_list_2 intersect;
+	CGAL::intersection(env_pgn, inv_pwh, std::back_inserter(intersect));
+	print_polygon_with_holes(intersect.front());
+
+	//Calculate the differnce between seen polygon and the original polygon.
+	Pwh_list_2 difference;
+	Pwh_list_2::const_iterator it_difference_pgn;
+	CGAL::difference(difference.front(), *it_join_pgn, std::back_inserter(difference));
+
+
+	// Print the differnce.
+	std::cout << "The difference polygon:" << std::endl;
+	for (it = difference.begin(); it != difference.end(); ++it) {
+	std::cout << "--> ";
+	print_polygon_with_holes(*it);
+	}
+
+	*/
 
 
 	double secs = timer.elapsed();
