@@ -125,6 +125,61 @@ Polygon_2 convert_Arrangement_2_to_Polygon_2(Arrangement_2 pol_arr2, string mess
 	return p;
 }
 
+Point_2 find_inter_point(Polygon_with_holes_2 pwh){
+	Polygon_2::Vertex_const_iterator vertex_it_bottom = pwh.outer_boundary().bottom_vertex();
+	Polygon_2::Vertex_const_iterator vertex_it_begin = pwh.outer_boundary().vertices_begin();
+	Polygon_2::Vertex_const_iterator vertex_it_end = pwh.outer_boundary().vertices_end();
+	Point_2 p1, p2, p3, pm1, pm2;
+	*--vertex_it_end;
+	if (*vertex_it_bottom == *vertex_it_begin){
+		p1 = *vertex_it_end;
+		p2 = *vertex_it_bottom;
+		p3 = *++vertex_it_bottom;
+	}
+	else{
+		p1 = *--vertex_it_bottom;
+		p2 = *++vertex_it_bottom;
+		if (*vertex_it_bottom == *vertex_it_end){
+			*vertex_it_bottom = *vertex_it_begin;
+		}
+		else{
+			*++vertex_it_bottom;
+		}
+		p3 = *vertex_it_bottom;
+	}
+	pm1 = p2 + (p1 - p2) / 2.0;
+	pm2 = p2 + (p3 - p2) / 2.0;
+	cout << "pm1: " << pm1 << endl;
+	cout << "pm2: " << pm2 << endl;
+	Segment_2 inter_seg(pm1, pm2);
+	//Segment_2 edge(*vertex_it_bottom, *vertex_it_bottom);
+	Point_2 tmp_point = *vertex_it_bottom;
+	Point_2 res;
+	bool intersect = false;
+	//*vertex_it = p2;
+	while (*vertex_it_bottom != p1 && !intersect){
+		if (*vertex_it_bottom == *vertex_it_end){
+			*vertex_it_bottom = *vertex_it_begin;
+		}
+		else{
+			*++vertex_it_bottom;
+		}
+		Segment_2 edge(tmp_point, *vertex_it_bottom);
+		tmp_point = *vertex_it_bottom;
+		cout << "edge: " << edge << endl;
+		CGAL::Object obj = CGAL::intersection(inter_seg, edge);
+		if (const Point_2 *inter_point = CGAL::object_cast<Point_2>(&obj)) {
+			cout << "inter_point: " << *inter_point << endl;
+			res = pm2 + (*inter_point - pm2) / 2.0;
+			intersect = true;
+		}
+	}
+	if (!intersect){
+		res = pm2 + (pm1 - pm2) / 2.0;
+	}
+	return res;
+}
+
 template<class Kernel, class Container>
 void print_polygon(const CGAL::Polygon_2<Kernel, Container>& P, string message)
 {

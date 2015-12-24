@@ -103,12 +103,10 @@ int main(int argc, char* argv[])
 		cout << "The cameras cover the polygon!" << endl;
 	}
 	else{
-		Polygon_2 res = difference.outer_boundary();
-		Point_2 p = *res.vertices_begin();
-		double x = CGAL::to_double(p.x());
-		double y = CGAL::to_double(p.y());
+		Point_2 res = find_inter_point(difference);
+		double x = CGAL::to_double(res.x());
+		double y = CGAL::to_double(res.y());
 		cout << "The cameras do not cover the point (" << setprecision(6) << x << "," << y << ")" << endl;
-		print_polygon_with_holes(difference);
 	}
 
 
