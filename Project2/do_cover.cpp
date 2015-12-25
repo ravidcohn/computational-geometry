@@ -43,7 +43,6 @@ int main(int argc, char* argv[])
 
 	boost::timer timer;
 
-
 	//Build the environment polygon with two datatype: Arrangement_2, Polygon_2.
 	Arrangement_2 env_arr = build_pgn_Arrangement_2(polygon_points, polygon_size);
 	Polygon_with_holes_2 env_pgn = build_pgn_Polygon_with_holes_2(polygon_points, polygon_size);
