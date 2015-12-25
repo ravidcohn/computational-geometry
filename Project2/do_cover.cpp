@@ -14,9 +14,6 @@ typedef std::list<Polygon_with_holes_2>                   Pwh_list_2;
 
 using namespace std;
 
-
-
-
 int main(int argc, char* argv[])
 {
 	//Default path for the inputs files.
@@ -97,9 +94,10 @@ int main(int argc, char* argv[])
 		}
 	}
 
-
+	double secs;
 	//Print result.
 	if (cover){
+		secs = timer.elapsed();
 		cout << "The cameras cover the polygon!" << endl;
 	}
 	else{
@@ -111,12 +109,13 @@ int main(int argc, char* argv[])
 		Point_2 res = find_inter_point(res_pgn);
 		double x = CGAL::to_double(res.x());
 		double y = CGAL::to_double(res.y());
+		secs = timer.elapsed();
 		cout << "The cameras do not cover the point (" << setprecision(6) << x << "," << y << ")" << endl;
 	}
 
 
 
-	double secs = timer.elapsed();
+	
 
 	cout << "The time is: " << secs << endl;
 	system("pause");
